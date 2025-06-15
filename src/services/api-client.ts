@@ -1,8 +1,11 @@
 import axios from "axios";
 
+// For Vite projects, use import.meta.env
+const apiKey = import.meta.env.VITE_RAWG_API_KEY;
+
 export default axios.create({
   baseURL: "https://api.rawg.io/api",
   params: {
-    key: "a866e0807345451ab116b94267f7fe5f",
+    key: apiKey,
   },
 });
