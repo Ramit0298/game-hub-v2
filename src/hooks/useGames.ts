@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { GameQuery } from "../App";
-import { axiosInstance, FetchResponse } from "../services/apiClient";
+import ApiClient from "../services/apiClient";
 import { Platform } from "./usePlatforms";
 
 export interface Game {
@@ -12,30 +12,20 @@ export interface Game {
   rating_top: number;
 }
 
-// const useGames = (gameQuery: GameQuery) =>
-//   useData<Game>("/games", [gameQuery], {
-//     params: {
-//       genres: gameQuery.genre?.id,
-//       platforms: gameQuery.platform?.id,
-//       ordering: gameQuery.sortOrder,
-//       search: gameQuery.searchText,
-//     },
-//   });
+const apiClient = new ApiClient<Game>("/games");
 
 const useGames = (gameQuery: GameQuery) => {
   return useQuery<Game[], Error>({
     queryKey: ["games", gameQuery],
-    queryFn: async () => {
-      const response = await axiosInstance.get<FetchResponse<Game>>("/games", {
+    queryFn: () =>
+      apiClient.getAll({
         params: {
           genres: gameQuery.genre?.id,
           parent_platforms: gameQuery.platform?.id,
           ordering: gameQuery.sortOrder,
           search: gameQuery.searchText,
         },
-      });
-      return response.data.results;
-    },
+      }),
     staleTime: 1000 * 60 * 60 * 24, // 24 hours
     keepPreviousData: true, // Keep previous data while fetching new data
   });
