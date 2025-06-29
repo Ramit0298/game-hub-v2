@@ -1,5 +1,5 @@
 import { HStack, Image, SimpleGrid, Text } from "@chakra-ui/react";
-import { Game } from "../models/Game";
+import Game from "../models/Game";
 import getCroppedImageUrl from "../services/imageUrl";
 import CriticScore from "./CriticScore";
 import DefinitionItem from "./DefinitionItem";
