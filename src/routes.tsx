@@ -17,7 +17,7 @@ const routes = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "games/:id",
+        path: "games/:slug",
         // element: (
         //   <React.Suspense fallback={<div>Loading...</div>}>
         //     <GameDetailPageLazy />
